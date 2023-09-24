@@ -5,12 +5,14 @@ from sklearn.cluster import KMeans
 
 
 def transform(dataset, n_features=5000):
+    # 将原始文本转化为tf-idf特征矩阵
     vectorizer = TfidfVectorizer(analyzer=filesReader.split_into_words, max_features=n_features)
     X = vectorizer.fit_transform(dataset)
     return X, vectorizer
 
 
 def train(X, vectorizer, true_k=14, showLable=False):
+    # 模型训练
     km = KMeans(n_clusters=true_k, max_iter=300, n_init=1)
     km.fit(X)
     if showLable:
